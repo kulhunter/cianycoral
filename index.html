@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cian y Coral | Postales de Chile y Acuarelas Artesanales</title>
-  <meta name="description" content="Catálogo oficial de Cian y Coral. Postales de Chile en acuarela desde $2.000 (3x$5.000 y 6x$10.000), cuadros tamaño postal y formato 21x30. Envíos a todo Chile." />
+  <meta name="description" content="Catálogo oficial de Cian y Coral. Postales de Chile en acuarela desde $2.000 (3×$5.000 y 6×$10.000), cuadros tamaño postal y formato 21×30. Envíos a todo Chile." />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <meta name="geo.region" content="CL" />
   <meta name="geo.placename" content="Chile" />
@@ -14,7 +14,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="es_CL" />
   <meta property="og:title" content="Cian y Coral | Postales de Chile en Acuarela" />
-  <meta property="og:description" content="Postales ilustradas en acuarela ($2.000 c/u · 3x$5.000). Envío gratis sobre $25.000 en postales." />
+  <meta property="og:description" content="Postales ilustradas en acuarela ($2.000 c/u · 3×$5.000). Envío gratis sobre $25.000 en postales." />
   <meta property="og:url" content="https://cianycoral.cl/" />
 
   <!-- Tipografías -->
@@ -89,145 +89,129 @@
   }
   </script>
 </head>
-<body class="font-sans text-ink antialiased selection:bg-cian-pastel selection:text-cian-deep">
+<body class="bg-paper font-sans text-ink antialiased selection:bg-cian-pastel selection:text-cian-deep">
 
   <!-- Lienzo de acuarela pastel en TODA la web -->
   <canvas id="watercolor-canvas" aria-hidden="true"></canvas>
 
-  <!-- Barra superior compacta de promos -->
-  <div class="relative z-20 bg-white/75 backdrop-blur-sm border-b border-stone-200/70 text-[11px] py-1.5 px-4">
-    <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-center sm:justify-between gap-x-4 gap-y-1 text-center">
-      <span class="font-medium text-cian-deep">✨ Promo Postales: <strong>3 × $5.000</strong> · <strong>6 × $10.000</strong></span>
-      <span class="font-medium text-coral-deep">📮 Envío GRATIS sobre $25.000 (solo postales)</span>
-    </div>
+  <!-- Acciones flotantes minimalistas (sin header) -->
+  <div class="fixed top-3 right-3 sm:top-4 sm:right-5 z-30 flex items-center gap-2">
+    <button type="button" onclick="window.WatercolorFX.drop()" class="hidden sm:inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/85 backdrop-blur-md hover:bg-cian-pastel/70 border border-stone-200/80 text-[11px] font-semibold text-slate-600 shadow-xs transition-colors" title="Lanzar pincelada de acuarela">
+      💧 Acuarela
+    </button>
+    <button type="button" onclick="window.CartApp.open()" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-ink/95 backdrop-blur-md hover:bg-cian-deep text-white text-xs font-semibold shadow-md transition-all active:scale-95" aria-label="Abrir carrito">
+      <svg class="w-4 h-4 text-coral-soft" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+      </svg>
+      <span class="hidden sm:inline">Carrito</span>
+      <span id="cart-count-badge" class="min-w-[20px] h-5 px-1.5 rounded-full bg-coral text-white text-[11px] font-bold inline-flex items-center justify-center">0</span>
+    </button>
   </div>
 
-  <!-- Header minimalista -->
-  <header class="sticky top-0 z-30 bg-paper/85 backdrop-blur-md border-b border-stone-200/70">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
-      <a href="#top" class="flex items-center gap-2.5 group">
-        <svg viewBox="0 0 120 120" class="w-10 h-10 shrink-0 transition-transform duration-300 group-hover:rotate-6" aria-label="Logo Cian y Coral">
-          <path fill="#00DDE8" d="M60 4 L66 10 L74 6 L78 13 L87 11 L89 19 L98 20 L98 28 L106 31 L104 39 L111 44 L107 52 L113 59 L107 66 L111 74 L104 79 L106 87 L98 90 L98 98 L89 99 L87 107 L78 105 L74 112 L66 108 L60 114 L54 108 L46 112 L42 105 L33 107 L31 99 L22 98 L22 90 L14 87 L16 79 L9 74 L13 66 L7 59 L13 52 L9 44 L16 39 L14 31 L22 28 L22 20 L31 19 L33 11 L42 13 L46 6 L54 10 Z" />
-          <text x="60" y="54" text-anchor="middle" fill="#FFFFFF" font-family="'Fredoka', sans-serif" font-weight="700" font-size="23">CiaN y</text>
-          <text x="60" y="81" text-anchor="middle" fill="#FFFFFF" font-family="'Fredoka', sans-serif" font-weight="700" font-size="25">Coral</text>
-        </svg>
-        <div class="leading-tight">
-          <span class="font-serif text-xl sm:text-2xl font-bold text-ink block">Cian <span class="text-coral italic">&amp;</span> Coral</span>
-          <span class="text-[10px] uppercase tracking-[0.18em] text-slate-500 font-semibold block">Postales de Chile</span>
-        </div>
-      </a>
-
-      <nav class="hidden md:flex items-center gap-6 text-xs font-semibold text-slate-600" aria-label="Principal">
-        <a href="#catalogo" class="hover:text-cian-deep transition-colors">Catálogo</a>
-        <a href="#formatos" class="hover:text-cian-deep transition-colors">Formatos y Precios</a>
-        <a href="#preguntas" class="hover:text-cian-deep transition-colors">Envíos y Dudas</a>
-      </nav>
-
-      <div class="flex items-center gap-2">
-        <button type="button" onclick="window.WatercolorFX.drop()" class="hidden sm:inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/80 hover:bg-cian-pastel/60 border border-stone-200 text-[11px] font-semibold text-slate-600 transition-colors" title="Lanzar pincelada de acuarela">
-          💧 Acuarela
-        </button>
-        <button type="button" onclick="window.CartApp.open()" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-ink hover:bg-cian-deep text-white text-xs font-semibold shadow-xs transition-all active:scale-95" aria-label="Abrir carrito">
-          <svg class="w-4 h-4 text-coral-soft" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-          </svg>
-          <span class="hidden sm:inline">Carrito</span>
-          <span id="cart-count-badge" class="min-w-[20px] h-5 px-1.5 rounded-full bg-coral text-white text-[11px] font-bold inline-flex items-center justify-center">0</span>
-        </button>
-      </div>
-    </div>
-  </header>
-
   <main id="top" class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
-    <!-- Hero compacto y editorial -->
-    <section class="pt-10 pb-8 text-center max-w-2xl mx-auto space-y-3">
-      <p class="text-[11px] uppercase tracking-[0.22em] font-semibold text-cian-deep">Acuarela artesanal chilena</p>
-      <h1 class="font-serif text-3xl sm:text-5xl font-bold text-ink leading-tight">
+    <!-- Inicio editorial compacto y delicado (sin barra de header) -->
+    <section class="pt-7 pb-6 text-center max-w-2xl mx-auto space-y-2.5">
+      <div class="inline-flex items-center justify-center gap-2.5">
+        <img src="./assets/logo.png" alt="Logo Cian y Coral" class="w-12 h-12 rounded-full object-contain drop-shadow-xs" />
+        <div class="text-left leading-tight">
+          <span class="font-serif text-xl font-bold text-ink block">Cian <span class="text-coral italic">&amp;</span> Coral</span>
+          <span class="text-[10px] uppercase tracking-[0.2em] font-semibold text-cian-deep block">Acuarela artesanal chilena</span>
+        </div>
+      </div>
+
+      <h1 class="font-serif text-2xl sm:text-4xl font-bold text-ink leading-tight">
         Postales y cuadros ilustrados de <span class="text-cian-deep italic">Chile</span>
       </h1>
-      <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-        Elige tus diseños favoritos en formato postal ($2.000), con sobre ($2.500), cuadro tamaño postal ($8.000) o clásico 21×30. Toca cualquier postal para ver su reverso y formatos.
+
+      <p class="text-xs text-slate-600 leading-relaxed max-w-xl mx-auto">
+        Toca cualquier postal para ver su tiro, retiro y formatos disponibles.
       </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-2 pt-1 text-[11px]">
+        <span class="px-2.5 py-1 rounded-full bg-cian-pastel/75 text-cian-deep font-semibold">✨ 3 × $5.000 · 6 × $10.000</span>
+        <span class="px-2.5 py-1 rounded-full bg-coral-pastel/75 text-coral-deep font-semibold">📮 Envío gratis &gt; $25.000 (solo postales)</span>
+        <a href="#formatos" class="px-2.5 py-1 rounded-full bg-white/80 border border-stone-200 text-slate-600 hover:text-cian-deep font-medium transition-colors">Formatos y valores ↓</a>
+      </div>
     </section>
 
     <!-- Catálogo: Barra de categorías + búsqueda compacta -->
-    <section id="catalogo" class="pb-14">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-6 bg-white/80 backdrop-blur-sm p-3 rounded-2xl border border-stone-200/80 shadow-2xs">
+    <section id="catalogo" class="pb-12">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-2.5 mb-4 bg-white/80 backdrop-blur-sm p-2.5 rounded-2xl border border-stone-200/80 shadow-2xs">
         <div id="category-tabs" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar" role="tablist" aria-label="Categorías">
           <!-- Generado por catalog.js -->
         </div>
-        <div class="relative w-full md:w-64 shrink-0">
+        <div class="relative w-full md:w-60 shrink-0">
           <input
             id="search-input"
             type="search"
             maxlength="60"
-            placeholder="Buscar ciudad, volcán, código..."
-            class="w-full pl-3.5 pr-8 py-1.5 rounded-xl bg-paper border border-stone-200 text-xs text-ink placeholder:text-slate-400 focus:outline-none focus:border-cian"
+            placeholder="Buscar ciudad, ave, código..."
+            class="w-full pl-3 pr-8 py-1.5 rounded-xl bg-paper border border-stone-200 text-xs text-ink placeholder:text-slate-400 focus:outline-none focus:border-cian"
           />
           <span class="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none">⌕</span>
         </div>
       </div>
 
       <!-- Contador de resultados -->
-      <div class="flex items-center justify-between text-[11px] text-slate-500 mb-4 px-1">
+      <div class="flex items-center justify-between text-[11px] text-slate-500 mb-3.5 px-1">
         <span id="catalog-counter">Cargando colección...</span>
-        <span>Formato vertical · Toca ↻ para ver el reverso</span>
+        <span>Toca ↻ para ver el retiro de la postal</span>
       </div>
 
-      <!-- Grilla compacta de postales verticales -->
-      <div id="catalog-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-5"></div>
+      <!-- Grilla compacta y proporcionada de postales -->
+      <div id="catalog-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5 sm:gap-4"></div>
 
-      <div id="catalog-empty" class="hidden text-center py-12 bg-white/80 rounded-2xl border border-stone-200">
-        <p class="font-serif text-xl font-bold text-ink">No encontramos diseños con ese filtro</p>
-        <button type="button" onclick="window.CatalogApp.reset()" class="mt-3 px-4 py-2 rounded-xl bg-cian text-white text-xs font-semibold">
+      <div id="catalog-empty" class="hidden text-center py-10 bg-white/80 rounded-2xl border border-stone-200">
+        <p class="font-serif text-lg font-bold text-ink">No encontramos diseños con ese filtro</p>
+        <button type="button" onclick="window.CatalogApp.reset()" class="mt-2.5 px-4 py-1.5 rounded-xl bg-cian text-white text-xs font-semibold">
           Ver todo el catálogo
         </button>
       </div>
     </section>
 
     <!-- Tabla limpia de Formatos y Precios -->
-    <section id="formatos" class="py-10 border-t border-stone-200/70">
-      <h2 class="font-serif text-2xl sm:text-3xl font-bold text-ink text-center mb-6">Formatos y Valores</h2>
+    <section id="formatos" class="py-8 border-t border-stone-200/70">
+      <h2 class="font-serif text-2xl font-bold text-ink text-center mb-5">Formatos y Valores</h2>
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
-        <div class="bg-white/85 backdrop-blur-xs p-4 rounded-2xl border border-cian-pastel">
+        <div class="bg-white/85 backdrop-blur-xs p-3.5 rounded-2xl border border-cian-pastel">
           <span class="text-[10px] font-bold uppercase tracking-wider text-cian-deep">Postales</span>
-          <p class="font-serif text-2xl font-bold text-ink mt-0.5">$2.000 <span class="text-[11px] font-sans font-normal text-slate-500">/ $2.500 c/sobre</span></p>
-          <p class="text-slate-600 mt-1">Promo: <strong>3 × $5.000</strong> y <strong>6 × $10.000</strong>.</p>
+          <p class="font-serif text-xl font-bold text-ink mt-0.5">$2.000 <span class="text-[11px] font-sans font-normal text-slate-500">/ $2.500 c/sobre</span></p>
+          <p class="text-slate-600 mt-1">Promo automática: <strong>3 × $5.000</strong> y <strong>6 × $10.000</strong>.</p>
         </div>
-        <div class="bg-white/85 backdrop-blur-xs p-4 rounded-2xl border border-coral-pastel">
+        <div class="bg-white/85 backdrop-blur-xs p-3.5 rounded-2xl border border-coral-pastel">
           <span class="text-[10px] font-bold uppercase tracking-wider text-coral-deep">Cuadro Postal</span>
-          <p class="font-serif text-2xl font-bold text-ink mt-0.5">$8.000</p>
+          <p class="font-serif text-xl font-bold text-ink mt-0.5">$8.000</p>
           <p class="text-slate-600 mt-1">Enmarcado en el mismo tamaño de la postal.</p>
         </div>
-        <div class="bg-white/85 backdrop-blur-xs p-4 rounded-2xl border border-stone-200">
+        <div class="bg-white/85 backdrop-blur-xs p-3.5 rounded-2xl border border-stone-200">
           <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500">Clásico 21×30</span>
-          <p class="font-serif text-2xl font-bold text-ink mt-0.5">$4.500 <span class="text-[11px] font-sans font-normal text-slate-500">papel · </span>$10.000 <span class="text-[11px] font-sans font-normal text-slate-500">marco</span></p>
+          <p class="font-serif text-xl font-bold text-ink mt-0.5">$4.500 <span class="text-[11px] font-sans font-normal text-slate-500">papel · </span>$10.000 <span class="text-[11px] font-sans font-normal text-slate-500">marco</span></p>
           <p class="text-slate-600 mt-1">Ideal para enmarcar o regalar.</p>
         </div>
-        <div class="bg-white/85 backdrop-blur-xs p-4 rounded-2xl border border-stone-200">
+        <div class="bg-white/85 backdrop-blur-xs p-3.5 rounded-2xl border border-stone-200">
           <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-700">Envíos</span>
-          <p class="font-serif text-2xl font-bold text-ink mt-0.5">Gratis &gt; $25.000</p>
-          <p class="text-slate-600 mt-1">Solo en postales. Cuadros y 21×30 se cotizan por peso y ciudad.</p>
+          <p class="font-serif text-xl font-bold text-ink mt-0.5">Gratis &gt; $25.000</p>
+          <p class="text-slate-600 mt-1">Solo en postales. Cuadros y 21×30 se cotizan por ciudad.</p>
         </div>
       </div>
     </section>
 
     <!-- FAQ compacta (AEO / CX) -->
-    <section id="preguntas" class="py-8 border-t border-stone-200/70 max-w-3xl mx-auto space-y-2.5 text-xs">
-      <h2 class="font-serif text-2xl font-bold text-ink text-center mb-4">Preguntas Frecuentes</h2>
-      <details class="bg-white/85 rounded-xl border border-stone-200 p-3.5">
+    <section id="preguntas" class="py-7 border-t border-stone-200/70 max-w-3xl mx-auto space-y-2 text-xs">
+      <h2 class="font-serif text-xl font-bold text-ink text-center mb-3">Preguntas Frecuentes</h2>
+      <details class="bg-white/85 rounded-xl border border-stone-200 p-3">
         <summary class="font-semibold text-ink cursor-pointer">¿Cómo funciona el descuento de 3×$5.000 y 6×$10.000?</summary>
-        <p class="text-slate-600 mt-2 leading-relaxed">El carrito aplica el descuento automáticamente al sumar 3, 6, 9 o más postales (pueden ser diseños distintos). Si llevas 2 postales, el carrito te avisará cuánto ahorras agregando una más.</p>
+        <p class="text-slate-600 mt-1.5 leading-relaxed">El carrito aplica el descuento automáticamente al sumar 3, 6, 9 o más postales (pueden ser diseños distintos). Si llevas 2 postales, el carrito te avisará cuánto ahorras agregando una más.</p>
       </details>
-      <details class="bg-white/85 rounded-xl border border-stone-200 p-3.5">
+      <details class="bg-white/85 rounded-xl border border-stone-200 p-3">
         <summary class="font-semibold text-ink cursor-pointer">¿Por qué el envío gratis aplica solo a postales?</summary>
-        <p class="text-slate-600 mt-2 leading-relaxed">Porque las postales son livianas. Los cuadros enmarcados y láminas 21×30 pesan más y requieren embalaje protector, y Chile es muy largo :P Por eso evaluamos el envío según tu ciudad al recibir tu pedido por WhatsApp.</p>
+        <p class="text-slate-600 mt-1.5 leading-relaxed">Porque las postales son livianas. Los cuadros enmarcados y láminas 21×30 pesan más y requieren embalaje protector, y Chile es muy largo :P Por eso evaluamos el envío según tu ciudad al recibir tu pedido por WhatsApp.</p>
       </details>
     </section>
   </main>
 
-  <footer class="relative z-10 mt-10 border-t border-stone-200/70 bg-white/70 backdrop-blur-xs">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
+  <footer class="relative z-10 mt-8 border-t border-stone-200/70 bg-white/70 backdrop-blur-xs">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
       <span>© 2026 <strong>Cian y Coral</strong> · Acuarelas &amp; Postales de Chile</span>
       <div class="flex items-center gap-4">
         <a href="https://instagram.com/cianycoral" target="_blank" rel="noopener noreferrer" class="hover:text-coral-deep font-medium">@cianycoral</a>
@@ -237,16 +221,16 @@
   </footer>
 
   <!-- ===================================================================== -->
-  <!-- MODAL DE PRODUCTO (Vista grande vertical + Tiro/Retiro + Formatos)    -->
+  <!-- MODAL NATIVO <dialog> DE PRODUCTO (Tiro / Retiro + Formatos)          -->
   <!-- ===================================================================== -->
-  <div id="product-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-ink/45 backdrop-blur-xs" onclick="window.CatalogApp.closeModal(event)">
-    <div class="bg-paper rounded-3xl shadow-2xl border border-stone-200 w-full max-w-2xl overflow-hidden grid grid-cols-1 sm:grid-cols-12 max-h-[90vh]" onclick="event.stopPropagation()">
-      <!-- Columna izquierda: Postal vertical interactiva -->
-      <div class="sm:col-span-6 bg-paperWarm/70 p-5 flex flex-col items-center justify-center">
-        <div class="postcard-scene w-full max-w-[230px] aspect-[2/3]">
+  <dialog id="product-modal" closedby="any" aria-labelledby="modal-title">
+    <div class="bg-paper rounded-3xl shadow-2xl border border-stone-200 w-full max-w-2xl overflow-hidden grid grid-cols-1 sm:grid-cols-12 max-h-[88dvh]">
+      <!-- Columna izquierda: Postal interactiva sin recortes -->
+      <div class="sm:col-span-6 bg-paperWarm/70 p-4 sm:p-5 flex flex-col items-center justify-center">
+        <div class="postcard-scene w-full max-w-[235px] aspect-[2/3]">
           <div id="modal-flip-card" class="postcard-inner rounded-lg">
             <div class="postcard-face bg-white p-2 rounded-lg border border-stone-200 postcard-shadow">
-              <div id="modal-front-img" class="w-full h-full rounded overflow-hidden bg-paperWarm"></div>
+              <div id="modal-front-img" class="w-full h-full rounded overflow-hidden bg-white flex items-center justify-center"></div>
             </div>
             <div id="modal-back-face" class="postcard-face postcard-back p-3 rounded-lg border border-stone-200 postcard-shadow"></div>
           </div>
@@ -262,14 +246,14 @@
           <div class="flex items-start justify-between gap-2">
             <div>
               <span id="modal-cat" class="text-[10px] font-bold uppercase tracking-wider text-cian-deep"></span>
-              <h3 id="modal-title" class="font-serif text-2xl font-bold text-ink leading-tight"></h3>
+              <h1 id="modal-title" class="font-serif text-2xl font-bold text-ink leading-tight"></h1>
             </div>
             <button type="button" onclick="window.CatalogApp.closeModal()" class="p-1.5 rounded-lg hover:bg-paperWarm text-slate-500 text-sm" aria-label="Cerrar">✕</button>
           </div>
 
           <div class="space-y-1.5">
             <label for="modal-format" class="block text-[11px] font-bold uppercase tracking-wider text-slate-500">Elige formato:</label>
-            <select id="modal-format" class="w-full px-3 py-2 rounded-xl bg-paper border border-stone-200 text-xs font-medium text-ink focus:outline-none focus:border-cian">
+            <select id="modal-format" autofocus class="w-full px-3 py-2 rounded-xl bg-paper border border-stone-200 text-xs font-medium text-ink focus:outline-none focus:border-cian">
               <option value="postal">Postal — $2.000 (3×$5.000)</option>
               <option value="postal_sobre">Postal con sobre — $2.500</option>
               <option value="cuadro_postal">Cuadro tamaño postal — $8.000</option>
@@ -288,7 +272,7 @@
         </button>
       </div>
     </div>
-  </div>
+  </dialog>
 
   <!-- ===================================================================== -->
   <!-- CARRITO LATERAL                                                       -->
@@ -306,7 +290,7 @@
     <div id="cart-promo-banner" class="hidden px-4 py-2 text-xs font-medium border-b"></div>
     <div id="cart-items" class="flex-1 overflow-y-auto p-4 space-y-2.5"></div>
 
-    <div class="p-4 bg-white border-t border-stone-200 space-y-3 max-h-[56vh] overflow-y-auto">
+    <div class="p-4 bg-white border-t border-stone-200 space-y-3 max-h-[56dvh] overflow-y-auto">
       <div class="space-y-1 text-xs">
         <div class="flex justify-between text-slate-600">
           <span>Subtotal:</span>

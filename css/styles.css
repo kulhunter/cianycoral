@@ -1,0 +1,82 @@
+/* Cian y Coral — Estilos de postales, retiro y diálogo */
+
+#watercolor-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Tarjeta de postal 3D (Tiro / Retiro) */
+.postcard-scene {
+  perspective: 1100px;
+}
+
+.postcard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.postcard-inner.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.postcard-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.postcard-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(160deg, #faf7f2 0%, #f3eee5 100%);
+}
+
+.postcard-shadow {
+  box-shadow:
+    0 2px 6px rgba(40, 49, 56, 0.06),
+    0 8px 20px rgba(40, 49, 56, 0.08);
+}
+
+/* Asegurar que ninguna postal se corte (ni vertical ni horizontal) */
+.postcard-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Modal nativo <dialog>: contener scroll del fondo sin romper scrollbar */
+dialog:modal {
+  overscroll-behavior: contain;
+  margin: auto;
+  border: none;
+  padding: 0;
+  background: transparent;
+  max-width: min(92vw, 44rem);
+  max-height: 90dvh;
+  overflow: visible;
+}
+
+dialog::backdrop {
+  background: rgba(40, 49, 56, 0.45);
+  backdrop-filter: blur(4px);
+  overflow: hidden;
+  overscroll-behavior: contain;
+}

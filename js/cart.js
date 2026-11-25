@@ -95,7 +95,7 @@ window.CartApp = (() => {
         if (!item || !f) return '';
         return `
           <div class="bg-white p-2.5 rounded-xl border border-stone-200 flex items-center gap-3">
-            <img src="${item.img}" alt="${item.title}" class="w-10 h-14 object-cover rounded-md border border-stone-100 shrink-0" />
+            <img src="${item.img}" alt="${item.title}" class="w-10 h-14 object-contain bg-paperWarm rounded-md border border-stone-100 shrink-0" />
             <div class="flex-1 min-w-0">
               <p class="font-serif font-bold text-sm text-ink truncate">${item.title}</p>
               <p class="text-[11px] text-slate-500">${f.name} · ${formatCLP(f.price)}</p>
