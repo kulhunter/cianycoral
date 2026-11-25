@@ -1,489 +1,1135 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-CL" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo Ciany Coral</title>
-    
-    <!-- Fuentes de Google -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS (CDN para estilos) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Lucide Icons (CDN para los iconos) -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cian y Coral | Acuarelas &amp; Postales de Chile</title>
+  <meta name="description" content="Catálogo digital de acuarelas artesanales y Postales de Chile. Promoción 3x$5.000 y 6x$10.000. Pedidos directos por WhatsApp con envíos a todo Chile." />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link id="canonical-link" rel="canonical" href="https://cianycoral.cl/" />
 
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
+  <!-- Tipografías: Serif editorial + Manuscrita postal + Sans suave -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Fredoka:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper: '#FDFBF7',
+            paperWarm: '#F7F2EA',
+            cian: {
+              pastel: '#D8F3F5',
+              soft: '#76D7E0',
+              DEFAULT: '#2FB7C4',
+              deep: '#1F8B96',
+              logo: '#00DDE8'
+            },
+            coral: {
+              pastel: '#FDE9E4',
+              soft: '#F7A99A',
+              DEFAULT: '#E87A68',
+              deep: '#C95A48'
+            },
+            ink: '#2C353D'
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            hand: ['"Caveat"', 'cursive'],
+            logo: ['"Fredoka"', 'sans-serif']
+          }
         }
-        .fuente-firma {
-            font-family: 'Dancing Script', cursive;
-        }
-        /* Animaciones para el modal */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes zoomIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        .animar-fade {
-            animation: fadeIn 0.2s ease-out forwards;
-        }
-        .animar-zoom {
-            animation: zoomIn 0.2s ease-out forwards;
-        }
-    </style>
+      }
+    };
+  </script>
+
+  <style>
+    body {
+      background-color: #FDFBF7;
+      color: #2C353D;
+      overflow-x: hidden;
+    }
+
+    /* Fondo pastel con aguadas muy suaves de acuarela */
+    .pastel-watercolor-bg {
+      background-color: #FDFBF7;
+      background-image:
+        radial-gradient(ellipse at 12% 18%, rgba(118, 215, 224, 0.16) 0%, transparent 48%),
+        radial-gradient(ellipse at 88% 24%, rgba(247, 169, 154, 0.16) 0%, transparent 46%),
+        radial-gradient(ellipse at 50% 82%, rgba(216, 243, 245, 0.22) 0%, transparent 55%),
+        radial-gradient(rgba(44, 53, 61, 0.025) 1px, transparent 0);
+      background-size: 100% 100%, 100% 100%, 100% 100%, 26px 26px;
+    }
+
+    /* Estilo físico de postal con giro 3D (Tiro y Retiro) */
+    .postcard-scene {
+      perspective: 1100px;
+    }
+
+    .postcard-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      transform-style: preserve-3d;
+    }
+
+    .postcard-inner.is-flipped {
+      transform: rotateY(180deg);
+    }
+
+    .postcard-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    .postcard-back {
+      transform: rotateY(180deg);
+      background: linear-gradient(145deg, #FAF7F0 0%, #F3EEE4 100%);
+    }
+
+    .postcard-paper-shadow {
+      box-shadow:
+        0 10px 25px -12px rgba(44, 53, 61, 0.18),
+        0 2px 6px -1px rgba(44, 53, 61, 0.08);
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
 </head>
-<body class="min-h-screen bg-neutral-50 text-neutral-800">
+<body class="font-sans antialiased pastel-watercolor-bg selection:bg-cian-pastel selection:text-cian-deep">
 
-    <!-- HEADER -->
-    <header class="bg-teal-600 text-white shadow-md">
-        <div class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
-            <div class="text-center md:text-left mb-4 md:mb-0">
-                <h1 class="text-5xl font-extrabold tracking-tight fuente-firma">
-                    Ciany Coral
-                </h1>
-                <p class="text-teal-100 mt-1 text-lg font-light tracking-wider uppercase">
-                    Catálogo de Postales
-                </p>
-            </div>
-            
-            <div class="flex flex-col items-center md:items-end space-y-2 text-sm">
-                <span class="bg-teal-700/50 px-3 py-1 rounded-full text-teal-50 font-medium">
-                    Diseños a Pedido
-                </span>
-                <div class="flex items-center space-x-4 mt-2">
-                    <button onclick="toggleCarrito()" class="relative flex items-center hover:text-teal-200 transition-colors mr-2" title="Ver mi pedido">
-                        <i data-lucide="shopping-cart" class="w-5 h-5 mr-1"></i>
-                        <span id="header-cart-count" class="absolute -top-2 -right-2 bg-rose-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center shadow-sm">0</span>
-                    </button>
-                    <a href="https://instagram.com/cianycoral" target="_blank" rel="noreferrer" class="flex items-center hover:text-teal-200 transition-colors">
-                        <i data-lucide="instagram" class="w-4 h-4 mr-1"></i> @cianycoral
-                    </a>
-                    <a href="mailto:cianycoral@gmail.com" class="flex items-center hover:text-teal-200 transition-colors">
-                        <i data-lucide="mail" class="w-4 h-4 mr-1"></i> cianycoral@gmail.com
-                    </a>
-                </div>
-            </div>
-        </div>
-    </header>
+  <!-- Textura sutil de fibra de papel algodón -->
+  <svg class="fixed w-0 h-0 pointer-events-none" aria-hidden="true">
+    <defs>
+      <filter id="cotton-fiber-overlay" x="0%" y="0%" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch" result="fiber" />
+        <feColorMatrix type="matrix" values="0 0 0 0 0.42  0 0 0 0 0.38  0 0 0 0 0.34  0 0 0 0.032 0" />
+      </filter>
+    </defs>
+  </svg>
+  <div class="fixed inset-0 pointer-events-none z-30" style="filter: url(#cotton-fiber-overlay);"></div>
 
-    <!-- CONTENIDO PRINCIPAL -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        
-        <!-- FILTROS -->
-        <div class="mb-8">
-            <div class="flex items-center text-teal-700 mb-4 font-semibold">
-                <i data-lucide="filter" class="w-5 h-5 mr-2"></i>
-                <h2>Explorar Colecciones</h2>
-            </div>
-            <div id="filters-container" class="flex flex-wrap gap-2">
-                <!-- Los botones se generan con JavaScript -->
-            </div>
-        </div>
-
-        <!-- CONTADOR -->
-        <p id="counter" class="text-sm text-neutral-500 mb-6"></p>
-
-        <!-- GRILLA DE PRODUCTOS -->
-        <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-            <!-- Las tarjetas se generan con JavaScript -->
-        </div>
-
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="bg-neutral-800 text-neutral-400 py-8 text-center mt-12">
-        <p>© 2026 Ciany Coral. Todos los derechos reservados.</p>
-        <p class="text-sm mt-2">Catálogo Digital Interactivo</p>
-    </footer>
-
-    <!-- MODAL (Oculto por defecto) -->
-    <div id="modal-overlay" onclick="cerrarModal(event)" class="hidden fixed inset-0 bg-neutral-900/60 backdrop-blur-sm z-50 items-center justify-center p-4 sm:p-6 animar-fade">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden flex flex-col md:flex-row max-h-[90vh] animar-zoom" onclick="event.stopPropagation()">
-            
-            <!-- Imagen Grande (Lado Izquierdo) -->
-            <div id="modal-img-container" class="md:w-1/2 min-h-[300px] flex items-center justify-center relative p-8">
-                <!-- Para poner la imagen real en el futuro, reemplazar el div de abajo por la etiqueta <img> -->
-                <!-- <img id="modal-img-real" src="" class="w-full h-full object-cover absolute inset-0" /> -->
-                <div class="text-center relative z-10">
-                    <h2 id="modal-id" class="text-black/30 font-black text-5xl mb-4"></h2>
-                    <p id="modal-img-text" class="text-black/50 text-lg font-medium"></p>
-                </div>
-            </div>
-
-            <!-- Información del Producto (Lado Derecho) -->
-            <div class="md:w-1/2 p-6 sm:p-8 flex flex-col relative overflow-y-auto bg-white">
-                <button onclick="cerrarModal()" id="btn-cerrar-modal" class="absolute top-4 right-4 text-neutral-400 hover:text-neutral-800 bg-neutral-100 hover:bg-neutral-200 rounded-full p-2 transition-colors">
-                    <i data-lucide="x" class="w-5 h-5 pointer-events-none"></i>
-                </button>
-
-                <div class="mb-2 pr-8">
-                    <span id="modal-categoria" class="inline-block bg-teal-100 text-teal-800 text-xs px-2 py-1 rounded-md font-semibold uppercase tracking-wider mb-2"></span>
-                    <h2 id="modal-nombre" class="text-3xl font-bold text-neutral-900"></h2>
-                    <p id="modal-precio" class="text-2xl text-teal-600 font-bold mt-2"></p>
-                </div>
-
-                <div class="my-6 border-t border-b border-neutral-100 py-4 space-y-4">
-                    <p id="modal-desc" class="text-neutral-600 leading-relaxed text-sm sm:text-base"></p>
-                    
-                    <div class="grid grid-cols-2 gap-4 text-sm">
-                        <div class="bg-neutral-50 p-3 rounded-lg">
-                            <span class="block text-neutral-400 text-xs uppercase mb-1">Formato</span>
-                            <span id="modal-medidas" class="font-medium text-neutral-700"></span>
-                        </div>
-                        <div class="bg-neutral-50 p-3 rounded-lg">
-                            <span class="block text-neutral-400 text-xs uppercase mb-1">Técnica Original</span>
-                            <span id="modal-tecnica" class="font-medium text-neutral-700"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-auto space-y-3">
-                    <button onclick="agregarAlCarrito()" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-colors flex justify-center items-center">
-                        <i data-lucide="shopping-cart" class="w-5 h-5 mr-2"></i>
-                        Añadir al Pedido
-                    </button>
-                    <a href="https://instagram.com/cianycoral" target="_blank" class="w-full bg-white hover:bg-neutral-50 text-teal-700 border-2 border-teal-100 font-bold py-3 px-4 rounded-xl transition-colors flex justify-center items-center">
-                        <i data-lucide="instagram" class="w-5 h-5 mr-2"></i>
-                        Consultar por DM
-                    </a>
-                </div>
-            </div>
-        </div>
+  <!-- ===================================================================== -->
+  <!-- CABECERA                                                              -->
+  <!-- ===================================================================== -->
+  <header class="sticky top-0 z-40 bg-paper/90 backdrop-blur-md border-b border-stone-200/70">
+    <!-- Barra superior de promociones -->
+    <div class="bg-gradient-to-r from-cian-pastel via-paperWarm to-coral-pastel text-ink text-[11px] sm:text-xs py-1.5 px-3 border-b border-stone-200/60">
+      <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-center sm:justify-between gap-2 text-center">
+        <span class="font-semibold text-cian-deep">
+          ✨ Promo Postales: <strong>3 × $5.000</strong> · <strong>6 × $10.000</strong>
+        </span>
+        <span class="text-coral-deep font-semibold">
+          📮 Envío GRATIS en compras sobre $25.000 (solo postales)
+        </span>
+      </div>
     </div>
 
-    <!-- CARRITO LATERAL (Oculto por defecto) -->
-    <div id="cart-overlay" onclick="toggleCarrito()" class="hidden fixed inset-0 bg-neutral-900/40 backdrop-blur-sm z-[60] transition-opacity"></div>
-    <div id="cart-panel" class="fixed right-0 top-0 h-full w-full sm:w-96 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-[70] flex flex-col">
-        <div class="p-6 flex items-center justify-between border-b border-neutral-100">
-            <h2 class="text-2xl font-bold text-teal-800 flex items-center">
-                <i data-lucide="shopping-bag" class="w-6 h-6 mr-2"></i> Mi Pedido
-            </h2>
-            <button onclick="toggleCarrito()" class="text-neutral-400 hover:text-neutral-800 p-2 rounded-full hover:bg-neutral-100 transition">
-                <i data-lucide="x" class="w-5 h-5"></i>
-            </button>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-3">
+      <!-- Logo Cian y Coral (recreación fiel del sello dentado cian) -->
+      <a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;" class="flex items-center gap-3 group">
+        <div class="w-12 h-12 sm:w-14 sm:h-14 shrink-0 transition-transform duration-500 group-hover:rotate-6">
+          <svg viewBox="0 0 120 120" class="w-full h-full drop-shadow-xs" aria-label="Logo Cian y Coral">
+            <path fill="#00DDE8" d="M60 4 L66 10 L74 6 L78 13 L87 11 L89 19 L98 20 L98 28 L106 31 L104 39 L111 44 L107 52 L113 59 L107 66 L111 74 L104 79 L106 87 L98 90 L98 98 L89 99 L87 107 L78 105 L74 112 L66 108 L60 114 L54 108 L46 112 L42 105 L33 107 L31 99 L22 98 L22 90 L14 87 L16 79 L9 74 L13 66 L7 59 L13 52 L9 44 L16 39 L14 31 L22 28 L22 20 L31 19 L33 11 L42 13 L46 6 L54 10 Z" />
+            <text x="60" y="54" text-anchor="middle" fill="#FFFFFF" font-family="'Fredoka', sans-serif" font-weight="700" font-size="23">CiaN y</text>
+            <text x="60" y="81" text-anchor="middle" fill="#FFFFFF" font-family="'Fredoka', sans-serif" font-weight="700" font-size="25">Coral</text>
+          </svg>
         </div>
-        
-        <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4">
-            <!-- Los items del carrito se insertarán aquí con JS -->
-            <p class="text-neutral-500 text-center mt-10">Tu carrito está vacío.</p>
+        <div>
+          <span class="font-serif text-2xl sm:text-3xl font-bold text-ink leading-none block">
+            Cian <span class="text-coral italic">&amp;</span> Coral
+          </span>
+          <span class="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-semibold block mt-0.5">
+            Acuarelas · Postales de Chile
+          </span>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-1.5" aria-label="Navegación">
+        <a href="#catalogo-section" class="px-3.5 py-2 rounded-xl text-sm font-medium text-slate-700 hover:text-cian-deep hover:bg-cian-pastel/50 transition-colors">
+          Catálogo
+        </a>
+        <a href="#precios-formatos" class="px-3.5 py-2 rounded-xl text-sm font-medium text-slate-700 hover:text-cian-deep hover:bg-cian-pastel/50 transition-colors">
+          Precios &amp; Promos
+        </a>
+        <a href="https://instagram.com/cianycoral" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl text-sm font-medium text-coral-deep hover:bg-coral-pastel/60 transition-colors">
+          @cianycoral
+        </a>
+      </nav>
+
+      <button type="button" onclick="openCart()" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-ink hover:bg-cian-deep text-paper text-xs sm:text-sm font-semibold shadow-sm transition-all active:scale-95" aria-label="Abrir carrito">
+        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-coral-soft" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+        </svg>
+        <span>Carrito</span>
+        <span id="cart-count-badge" class="inline-flex items-center justify-center min-w-[22px] h-[22px] px-1.5 rounded-full bg-coral text-white text-xs font-bold">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===================================================================== -->
+  <!-- HERO CON LIENZO INTERACTIVO DE ACUARELA PASTEL SUAVE                  -->
+  <!-- ===================================================================== -->
+  <section id="top" class="relative overflow-hidden border-b border-stone-200/70">
+    <canvas id="watercolor-canvas" class="absolute inset-0 w-full h-full cursor-crosshair touch-none" aria-label="Lienzo interactivo de acuarela pastel"></canvas>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 pointer-events-none">
+      <div class="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+        <div class="lg:col-span-7 space-y-5 pointer-events-auto">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/85 backdrop-blur-xs border border-stone-200/80 shadow-2xs text-xs font-semibold text-ink">
+            <span class="w-2.5 h-2.5 rounded-full bg-cian-soft"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-coral-soft -ml-1"></span>
+            <span>Acuarelas delicadas hechas con cariño · Envíos a todo Chile</span>
+          </div>
+
+          <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-ink leading-[1.08]">
+            Postales y cuadros en acuarela con alma de <span class="text-cian-deep italic">Chile</span>.
+          </h1>
+
+          <p class="text-sm sm:text-base text-slate-600 max-w-xl leading-relaxed bg-paper/75 backdrop-blur-[2px] rounded-2xl p-2 -ml-2">
+            Cada diseño está disponible como <strong>postal ($2.000)</strong>, <strong>postal con sobre ($2.500)</strong>, <strong>cuadro tamaño postal ($8.000)</strong> o en <strong>formato clásico 21×30</strong>. Toca cualquier postal para girar y ver su reverso real.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-3 pt-1">
+            <a href="#catalogo-section" class="px-5 py-3 rounded-2xl bg-cian hover:bg-cian-deep text-white font-semibold text-sm shadow-sm transition-all active:scale-95">
+              Explorar Postales
+            </a>
+            <button type="button" onclick="dropWatercolorBlob()" class="px-4 py-3 rounded-2xl bg-white/90 hover:bg-coral-pastel border border-stone-200 text-ink font-semibold text-xs sm:text-sm transition-all active:scale-95">
+              💧 Pincelada pastel
+            </button>
+            <button type="button" onclick="clearWatercolorCanvas()" class="px-4 py-3 rounded-2xl bg-white/75 hover:bg-white border border-stone-200 text-slate-600 font-medium text-xs transition-all">
+              Limpiar papel
+            </button>
+          </div>
         </div>
 
-        <div class="p-6 border-t border-neutral-100 bg-neutral-50">
-            <div class="flex justify-between items-center mb-2">
-                <span class="text-neutral-600 font-medium">Subtotal</span>
-                <span id="cart-subtotal" class="text-xl font-bold text-neutral-900">$0</span>
+        <!-- Postal destacada interactiva (con tiro y retiro) -->
+        <div class="lg:col-span-5 pointer-events-auto">
+          <div class="bg-white/90 backdrop-blur-xs p-4 rounded-3xl border border-stone-200/80 shadow-lg">
+            <div class="postcard-scene aspect-[4/3] w-full cursor-pointer" onclick="toggleFlip(this.querySelector('.postcard-inner'))">
+              <div class="postcard-inner rounded-xl">
+                <!-- Frente -->
+                <div class="postcard-face bg-white p-2.5 rounded-xl border border-stone-200 postcard-paper-shadow flex flex-col">
+                  <div id="hero-artwork-box" class="flex-1 rounded-lg overflow-hidden bg-paperWarm"></div>
+                  <div class="pt-2 flex items-center justify-between text-[11px] text-slate-500">
+                    <span id="hero-artwork-title" class="font-serif text-base font-bold text-ink">Cargando obra...</span>
+                    <span class="text-cian-deep font-semibold">↻ Toca para ver reverso</span>
+                  </div>
+                </div>
+                <!-- Reverso -->
+                <div id="hero-back-box" class="postcard-face postcard-back p-3 rounded-xl border border-stone-200 postcard-paper-shadow"></div>
+              </div>
             </div>
-            <p class="text-xs text-neutral-500 mb-4">* Los costos de envío <span class="font-bold underline">no están incluidos</span>. Estos se calcularán según tu dirección al contactar por WhatsApp.</p>
-            
-            <button onclick="enviarWhatsApp()" class="w-full bg-[#25D366] hover:bg-[#20b858] text-white font-bold py-3 px-4 rounded-xl shadow-md transition-colors flex justify-center items-center">
-                <svg class="w-5 h-5 mr-2 fill-current" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.383 0 12.029c0 2.124.553 4.195 1.604 6.012L.266 24l6.108-1.602a11.967 11.967 0 0 0 5.657 1.417h.004c6.645 0 12.031-5.383 12.031-12.029C24 5.383 18.675 0 12.031 0zm0 21.84c-1.802 0-3.568-.484-5.116-1.402l-.367-.217-3.8.997 1.015-3.705-.238-.378A9.98 9.98 0 0 1 2.035 12.03c0-5.512 4.488-10.001 10.001-10.001 2.673 0 5.183 1.042 7.07 2.932 1.888 1.89 2.928 4.401 2.928 7.072 0 5.51-4.488 9.998-9.998 9.998zm5.485-7.498c-.301-.151-1.782-.879-2.059-.979-.278-.1-.48-.151-.682.151-.202.302-.777.98-.953 1.18-.176.202-.353.227-.654.076-1.583-.794-2.73-1.464-3.805-3.32-.176-.303.176-.279.47-.866.076-.151.038-.278-.019-.43-.057-.151-.682-1.644-.934-2.25-.246-.593-.497-.512-.682-.52-.176-.008-.378-.01-.58-.01-.202 0-.53.076-.807.378-.278.303-1.06 1.037-1.06 2.527 0 1.49 1.085 2.93 1.236 3.131.151.202 2.137 3.262 5.176 4.57 2.138.922 2.87.801 3.398.674.618-.148 1.782-.728 2.034-1.431.252-.703.252-1.306.176-1.432-.076-.126-.278-.202-.58-.353z"/></svg>
-                Comprar por WhatsApp
-            </button>
+            <div class="pt-3 flex items-center justify-between gap-2">
+              <span class="text-xs text-slate-500">Postal $2.000 · 3 × $5.000</span>
+              <button id="hero-add-btn" type="button" class="px-4 py-2 rounded-xl bg-coral hover:bg-coral-deep text-white text-xs font-bold transition-colors active:scale-95">
+                + Agregar Postal
+              </button>
+            </div>
+          </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- RESUMEN DE PRECIOS, FORMATOS Y PROMOCIONES                            -->
+  <!-- ===================================================================== -->
+  <section id="precios-formatos" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+      <div class="bg-white/90 rounded-2xl p-4 border border-cian-pastel shadow-2xs">
+        <span class="inline-block px-2 py-0.5 rounded-full bg-cian-pastel text-cian-deep font-bold mb-1.5">Postales</span>
+        <p class="font-serif text-xl font-bold text-ink">$2.000 <span class="text-xs font-sans font-normal text-slate-500">/ $2.500 con sobre</span></p>
+        <p class="text-slate-600 mt-1">Promo automática: <strong>3 × $5.000</strong> y <strong>6 × $10.000</strong>.</p>
+      </div>
+      <div class="bg-white/90 rounded-2xl p-4 border border-coral-pastel shadow-2xs">
+        <span class="inline-block px-2 py-0.5 rounded-full bg-coral-pastel text-coral-deep font-bold mb-1.5">Cuadro Postal</span>
+        <p class="font-serif text-xl font-bold text-ink">$8.000 <span class="text-xs font-sans font-normal text-slate-500">enmarcado</span></p>
+        <p class="text-slate-600 mt-1">Tu postal favorita lista para colgar, en el mismo tamaño postal.</p>
+      </div>
+      <div class="bg-white/90 rounded-2xl p-4 border border-stone-200 shadow-2xs">
+        <span class="inline-block px-2 py-0.5 rounded-full bg-paperWarm text-ink font-bold mb-1.5">Formato Clásico 21×30</span>
+        <p class="font-serif text-xl font-bold text-ink">$4.500 <span class="text-xs font-sans font-normal text-slate-500">solo papel · </span>$10.000 <span class="text-xs font-sans font-normal text-slate-500">con marco</span></p>
+        <p class="text-slate-600 mt-1">Ideal para enmarcar y decorar tus espacios.</p>
+      </div>
+      <div class="bg-gradient-to-br from-cian-pastel/60 to-coral-pastel/60 rounded-2xl p-4 border border-stone-200/80 shadow-2xs">
+        <span class="inline-block px-2 py-0.5 rounded-full bg-white text-cian-deep font-bold mb-1.5">Envíos a todo Chile</span>
+        <p class="font-serif text-xl font-bold text-ink">Gratis &gt; $25.000</p>
+        <p class="text-slate-600 mt-1">Solo en postales. Cuadros y 21×30 se cotizan aparte porque pesan y Chile es muy largo :P</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- CATÁLOGO DE POSTALES                                                  -->
+  <!-- ===================================================================== -->
+  <section id="catalogo-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
+      <div>
+        <span class="text-xs font-bold uppercase tracking-[0.2em] text-cian-deep block mb-1">Colección Completa</span>
+        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-ink">Elige tus Postales &amp; Cuadros</h2>
+      </div>
+      <p class="text-xs text-slate-500">
+        💡 Haz clic en <strong>"↻ Ver reverso"</strong> en cualquier postal para ver el tiro y retiro.
+      </p>
     </div>
 
-    <!-- LOGICA DEL CATÁLOGO EN JAVASCRIPT -->
-    <script>
-        // Inicializar iconos de Lucide
-        lucide.createIcons();
+    <!-- Filtros -->
+    <div class="bg-white/90 border border-stone-200/80 rounded-3xl p-4 shadow-2xs mb-8 space-y-3">
+      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+        <button type="button" data-category="Todas" onclick="selectCategory('Todas')" class="category-chip px-4 py-2 rounded-2xl text-xs sm:text-sm font-semibold whitespace-nowrap bg-ink text-white transition-all">
+          Todas
+        </button>
+        <button type="button" data-category="Ciudades" onclick="selectCategory('Ciudades')" class="category-chip px-4 py-2 rounded-2xl text-xs sm:text-sm font-semibold whitespace-nowrap bg-paperWarm text-slate-700 hover:bg-cian-pastel/60 transition-all">
+          Ciudades
+        </button>
+        <button type="button" data-category="Paisajes" onclick="selectCategory('Paisajes')" class="category-chip px-4 py-2 rounded-2xl text-xs sm:text-sm font-semibold whitespace-nowrap bg-paperWarm text-slate-700 hover:bg-cian-pastel/60 transition-all">
+          Paisajes
+        </button>
+        <button type="button" data-category="Volcanes" onclick="selectCategory('Volcanes')" class="category-chip px-4 py-2 rounded-2xl text-xs sm:text-sm font-semibold whitespace-nowrap bg-paperWarm text-slate-700 hover:bg-cian-pastel/60 transition-all">
+          Volcanes
+        </button>
+        <button type="button" data-category="Fauna" onclick="selectCategory('Fauna')" class="category-chip px-4 py-2 rounded-2xl text-xs sm:text-sm font-semibold whitespace-nowrap bg-paperWarm text-slate-700 hover:bg-cian-pastel/60 transition-all">
+          Fauna
+        </button>
+        <button type="button" data-category="Flora y Típicos" onclick="selectCategory('Flora y Típicos')" class="category-chip px-4 py-2 rounded-2xl text-xs sm:text-sm font-semibold whitespace-nowrap bg-paperWarm text-slate-700 hover:bg-cian-pastel/60 transition-all">
+          Flora y Típicos
+        </button>
+        <button type="button" data-category="Comida" onclick="selectCategory('Comida')" class="category-chip px-4 py-2 rounded-2xl text-xs sm:text-sm font-semibold whitespace-nowrap bg-paperWarm text-slate-700 hover:bg-cian-pastel/60 transition-all">
+          Comida
+        </button>
+      </div>
 
-        // 1. Generador de Datos (Igual que en React)
-        const generarCatalogo = () => {
-            const productos = [];
-            const pad = (n) => n.toString().padStart(2, '0');
+      <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 pt-2 border-t border-stone-100">
+        <div class="sm:col-span-9">
+          <input
+            id="search-input"
+            type="search"
+            maxlength="80"
+            oninput="handleSearch(this.value)"
+            placeholder="Buscar por ciudad, volcán, fauna o código (ej: Puerto Varas, Frutillar, Osorno)..."
+            class="w-full px-4 py-2.5 rounded-2xl bg-paper border border-stone-200 text-sm text-ink placeholder:text-slate-400 focus:outline-none focus:border-cian"
+          />
+        </div>
+        <div class="sm:col-span-3">
+          <button type="button" onclick="resetCatalogFilters()" class="w-full py-2.5 px-3 rounded-2xl bg-paperWarm hover:bg-stone-200/70 text-xs font-bold text-slate-700 transition-colors">
+            Limpiar filtros
+          </button>
+        </div>
+      </div>
+    </div>
 
-            const agregarLote = (prefijo, cantidad, categoria, nombreBase, tecnica = 'Acuarela') => {
-                for (let i = 1; i <= cantidad; i++) {
-                    const id = `${prefijo} ${pad(i)}`;
-                    productos.push({
-                        id: id,
-                        categoria: categoria,
-                        nombre: `${nombreBase} - ${id}`,
-                        descripcion: `Reproducción impresa de alta calidad de ${tecnica.toLowerCase()} original por Ciany Coral. Ideal para enmarcar, regalar o coleccionar.`,
-                        medidas: '13 x 18 cm (Tamaño Postal)',
-                        tecnicaOriginal: tecnica,
-                        precio: '$2.500 CLP',
-                        precioNum: 2500, // Añadido para sumar en el carrito
-                        // AQUÍ PODRÍAS AGREGAR LA IMAGEN REAL MÁS ADELANTE:
-                        // imagenUrl: `imagenes/${id.replace(' ', '_')}.jpg`, 
-                        colorFondo: `hsl(${Math.random() * 360}, 60%, 85%)` // Color pastel simulado
-                    });
-                }
-            };
+    <!-- Grilla -->
+    <div id="catalog-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
 
-            agregarLote('PV', 9, 'Puerto Varas', 'Postal Puerto Varas');
-            agregarLote('LL', 8, 'Llanquihue', 'Postal Llanquihue');
-            agregarLote('FR', 8, 'Frutillar', 'Postal Frutillar');
-            agregarLote('PO', 3, 'Puerto Octay', 'Postal Puerto Octay');
-            agregarLote('PM', 1, 'Puerto Montt', 'Postal Puerto Montt');
-            agregarLote('PS', 8, 'Paisajes', 'Paisaje del Sur');
-            agregarLote('VC', 6, 'Volcanes', 'Volcán de Chile');
-            agregarLote('AV', 16, 'Aves', 'Ave Nativa');
-            agregarLote('FAP', 6, 'Fauna', 'Fauna Chilena', 'Pastel');
-            agregarLote('FAA', 6, 'Fauna', 'Fauna Chilena', 'Acuarela');
-            agregarLote('FT', 17, 'Flores y Típicos', 'Flora y Tradición');
+    <div id="catalog-empty-state" class="hidden text-center py-12 bg-white/90 rounded-3xl border border-stone-200 mt-6">
+      <p class="font-serif text-2xl font-bold text-ink">No encontramos diseños con ese filtro</p>
+      <button type="button" onclick="resetCatalogFilters()" class="mt-3 px-5 py-2.5 rounded-2xl bg-cian text-white text-xs font-bold">
+        Ver todo el catálogo
+      </button>
+    </div>
+  </section>
 
-            return productos;
-        };
+  <!-- ===================================================================== -->
+  <!-- FOOTER                                                                -->
+  <!-- ===================================================================== -->
+  <footer class="bg-paperWarm border-t border-stone-200/80 text-slate-600">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+      <span>© 2026 <strong>Cian y Coral</strong> · Acuarelas &amp; Postales de Chile</span>
+      <div class="flex items-center gap-4">
+        <a href="https://instagram.com/cianycoral" target="_blank" rel="noopener noreferrer" class="hover:text-coral-deep font-semibold">Instagram @cianycoral</a>
+        <a href="https://wa.me/56977623568" target="_blank" rel="noopener noreferrer" class="hover:text-cian-deep font-semibold">WhatsApp +56 9 7762 3568</a>
+      </div>
+    </div>
+  </footer>
 
-        const INVENTARIO = generarCatalogo();
-        const CATEGORIAS = ['Todos', ...new Set(INVENTARIO.map(p => p.categoria))];
-        
-        let categoriaActiva = 'Todos';
+  <!-- ===================================================================== -->
+  <!-- CARRITO LATERAL CON PROMOCIONES + FORMULARIO DE ENVÍO                 -->
+  <!-- ===================================================================== -->
+  <div id="cart-overlay" onclick="closeCart()" class="fixed inset-0 bg-ink/40 backdrop-blur-2xs z-40 hidden"></div>
+  <aside id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-paper shadow-2xl z-50 translate-x-full transition-transform duration-300 flex flex-col border-l border-stone-200" aria-label="Carrito de compra">
+    <div class="px-5 py-4 bg-white border-b border-stone-200 flex items-center justify-between">
+      <div>
+        <h2 class="font-serif text-2xl font-bold text-ink">Tu Carrito</h2>
+        <p class="text-[11px] text-cian-deep font-semibold">3 postales × $5.000 · 6 × $10.000</p>
+      </div>
+      <button type="button" onclick="closeCart()" class="p-2 rounded-xl hover:bg-paperWarm text-slate-600 font-bold" aria-label="Cerrar carrito">✕</button>
+    </div>
 
-        // Variables Globales del Carrito
-        let carrito = [];
-        let productoSeleccionado = null;
+    <!-- Banner inteligente de promo / upsell -->
+    <div id="cart-promo-banner" class="hidden px-4 py-2.5 text-xs font-medium border-b"></div>
 
-        // 2. Funciones de Renderizado
-        function renderFiltros() {
-            const container = document.getElementById('filters-container');
-            let html = '';
-            CATEGORIAS.forEach(cat => {
-                const activo = categoriaActiva === cat;
-                const clases = activo 
-                    ? 'bg-teal-600 text-white shadow-md transform scale-105' 
-                    : 'bg-white text-neutral-600 border border-neutral-200 hover:bg-teal-50 hover:border-teal-200';
-                
-                html += `<button onclick="cambiarCategoria('${cat}')" class="px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${clases}">${cat}</button>`;
-            });
-            container.innerHTML = html;
+    <!-- Lista de productos -->
+    <div id="cart-items" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
+
+    <!-- Resumen + Formulario obligatorio antes de WhatsApp -->
+    <div class="p-4 bg-white border-t border-stone-200 space-y-3 max-h-[58vh] overflow-y-auto">
+      <!-- Totales -->
+      <div class="space-y-1 text-xs">
+        <div class="flex justify-between text-slate-600">
+          <span>Subtotal normal:</span>
+          <span id="summary-subtotal" class="font-semibold">$0</span>
+        </div>
+        <div id="summary-discount-row" class="hidden justify-between text-emerald-700 font-semibold">
+          <span id="summary-discount-label">Promo Postales (3×$5.000):</span>
+          <span id="summary-discount">-$0</span>
+        </div>
+        <div class="flex justify-between text-slate-600">
+          <span>Envío:</span>
+          <span id="summary-shipping" class="font-semibold text-right">Por evaluar según ciudad</span>
+        </div>
+        <p id="shipping-note" class="text-[11px] text-slate-500 bg-paperWarm rounded-xl p-2 hidden"></p>
+        <div class="flex justify-between text-base font-bold text-ink pt-1.5 border-t border-stone-100">
+          <span>Total productos:</span>
+          <span id="summary-total" class="text-cian-deep">$0</span>
+        </div>
+      </div>
+
+      <!-- Datos del cliente obligatorios -->
+      <div class="space-y-2 pt-2 border-t border-stone-100">
+        <p class="text-[11px] font-bold uppercase tracking-wider text-ink">
+          Tus datos para evaluar el envío:
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <input id="cust-name" type="text" maxlength="80" placeholder="Nombre completo *" class="w-full px-3 py-2 rounded-xl bg-paper border border-stone-200 text-xs text-ink focus:outline-none focus:border-cian" />
+          <input id="cust-phone" type="tel" maxlength="25" placeholder="Teléfono (+56 9...) *" class="w-full px-3 py-2 rounded-xl bg-paper border border-stone-200 text-xs text-ink focus:outline-none focus:border-cian" />
+        </div>
+        <input id="cust-address" type="text" maxlength="140" placeholder="Dirección (calle, número, depto) *" class="w-full px-3 py-2 rounded-xl bg-paper border border-stone-200 text-xs text-ink focus:outline-none focus:border-cian" />
+        <input id="cust-city" type="text" maxlength="80" placeholder="Ciudad / Comuna *" class="w-full px-3 py-2 rounded-xl bg-paper border border-stone-200 text-xs text-ink focus:outline-none focus:border-cian" />
+        <p id="form-error-msg" class="hidden text-[11px] text-coral-deep font-semibold"></p>
+      </div>
+
+      <button id="btn-send-whatsapp" type="button" onclick="sendOrderWhatsApp()" class="w-full py-3 px-4 rounded-2xl bg-[#25D366] hover:bg-[#1ebe5b] text-white font-bold text-xs sm:text-sm shadow-sm transition-all active:scale-95 disabled:opacity-40 disabled:pointer-events-none">
+        Enviar Pedido por WhatsApp (+56 9 7762 3568)
+      </button>
+    </div>
+  </aside>
+
+  <!-- Toast -->
+  <div id="toast-box" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 translate-y-2 transition-all duration-300">
+    <div class="bg-ink text-white text-xs font-medium px-4 py-2.5 rounded-full shadow-lg">
+      <span id="toast-text">Listo</span>
+    </div>
+  </div>
+
+  <script>
+    'use strict';
+
+    const WHATSAPP_NUMBER = '56977623568';
+
+    function sanitizeText(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function formatCLP(num) {
+      return '$' + Math.max(0, Math.round(Number(num) || 0)).toLocaleString('es-CL');
+    }
+
+    // Formatos y precios oficiales
+    const FORMATS = Object.freeze({
+      postal: Object.freeze({
+        id: 'postal',
+        name: 'Postal',
+        price: 2000,
+        isPostal: true,
+        freeShippingEligible: true
+      }),
+      postal_sobre: Object.freeze({
+        id: 'postal_sobre',
+        name: 'Postal con sobre',
+        price: 2500,
+        isPostal: true,
+        freeShippingEligible: true
+      }),
+      cuadro_postal: Object.freeze({
+        id: 'cuadro_postal',
+        name: 'Cuadro tamaño postal (con marco)',
+        price: 8000,
+        isPostal: false,
+        freeShippingEligible: false
+      }),
+      lamina_21x30: Object.freeze({
+        id: 'lamina_21x30',
+        name: 'Formato 21×30 (solo papel)',
+        price: 4500,
+        isPostal: false,
+        freeShippingEligible: false
+      }),
+      cuadro_21x30: Object.freeze({
+        id: 'cuadro_21x30',
+        name: 'Cuadro 21×30 (con marco)',
+        price: 10000,
+        isPostal: false,
+        freeShippingEligible: false
+      })
+    });
+
+    const FALLBACK_FILES = [
+      'Ciudades_Puerto_Varas_PV01.webp',
+      'Ciudades_Frutillar_FR01.webp',
+      'Ciudades_Llanquihue_LL01.webp',
+      'Ciudades_Osorno_OS1.webp',
+      'Ciudades_Puerto_Montt_PM01.webp',
+      'Ciudades_Puerto_Octay_PO01.webp'
+    ];
+
+    let CATALOG = [];
+
+    function mapCategory(rawPrefix) {
+      const p = rawPrefix.toLowerCase();
+      if (p.includes('ciudad')) return 'Ciudades';
+      if (p.includes('paisaje')) return 'Paisajes';
+      if (p.includes('volcan')) return 'Volcanes';
+      if (p.includes('fauna') || p.includes('ave')) return 'Fauna';
+      if (p.includes('flora') || p.includes('flor') || p.includes('tipic')) return 'Flora y Típicos';
+      if (p.includes('comida') || p.includes('gastronom')) return 'Comida';
+      return 'Paisajes';
+    }
+
+    function parseFilenameToProduct(fileName, index) {
+      const cleanName = fileName.replace(/\.(webp|jpg|jpeg|png)$/i, '');
+      const parts = cleanName.split('_').filter(Boolean);
+      const category = mapCategory(parts[0] || '');
+      const code = parts.length > 1 ? parts[parts.length - 1] : '';
+      const middle = parts.length > 2 ? parts.slice(1, -1).join(' ') : (parts[1] || cleanName);
+      const title = code && middle !== code ? `${middle} (${code})` : middle;
+
+      return Object.freeze({
+        id: cleanName.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+        title: title.replace(/-/g, ' '),
+        category,
+        img: `./${encodeURIComponent(fileName)}`
+      });
+    }
+
+    async function loadCatalogFromGitHub() {
+      const cacheKey = 'cianycoral_gh_files_v2';
+      let imageFiles = null;
+
+      try {
+        const cached = sessionStorage.getItem(cacheKey);
+        if (cached) imageFiles = JSON.parse(cached);
+      } catch (_) {}
+
+      if (!Array.isArray(imageFiles) || imageFiles.length === 0) {
+        try {
+          const res = await fetch('https://api.github.com/repos/kulhunter/cianycoral/contents/');
+          if (res.ok) {
+            const data = await res.json();
+            if (Array.isArray(data)) {
+              imageFiles = data
+                .filter(f => f.type === 'file' && /\.(webp|jpg|jpeg|png)$/i.test(f.name))
+                .map(f => f.name);
+              try { sessionStorage.setItem(cacheKey, JSON.stringify(imageFiles)); } catch (_) {}
+            }
+          }
+        } catch (_) {}
+      }
+
+      const finalFiles = (Array.isArray(imageFiles) && imageFiles.length > 0) ? imageFiles : FALLBACK_FILES;
+      CATALOG = Object.freeze(finalFiles.map((name, i) => parseFilenameToProduct(name, i)));
+
+      const allBtn = document.querySelector('[data-category="Todas"]');
+      if (allBtn) allBtn.textContent = `Todas (${CATALOG.length})`;
+    }
+
+    // =========================================================================
+    // RETIRO (REVERSO) EXACTO DE LA POSTAL EN HTML/SVG LIMPIO
+    // =========================================================================
+    function renderPostcardBackHTML() {
+      return `
+        <div class="w-full h-full flex flex-col justify-between text-[#5A544E] select-none p-1">
+          <!-- Fila superior: Fecha + Sello Cian y Coral + Recuadro estampilla -->
+          <div class="flex items-start justify-between gap-2">
+            <div class="w-5/12 pt-1">
+              <span class="font-hand text-base sm:text-lg leading-none block">Fecha:</span>
+              <div class="border-b border-[#8C847C] mt-1.5"></div>
+            </div>
+            <div class="relative w-24 h-14 shrink-0">
+              <!-- Texto CiaN y Coral inclinado -->
+              <span class="absolute left-0 top-0 -rotate-18 font-logo text-[9px] leading-[1.05] font-bold text-[#5A544E] text-center">
+                CiaN y<br/>Coral
+              </span>
+              <!-- Sello circular dentado gris suave -->
+              <svg viewBox="0 0 60 60" class="w-11 h-11 absolute left-3 top-2.5 opacity-55" aria-hidden="true">
+                <circle cx="30" cy="30" r="24" fill="#BFB7AE" stroke="#9C938A" stroke-width="2" stroke-dasharray="3 2" />
+                <circle cx="30" cy="30" r="19" fill="#C9C1B8" />
+              </svg>
+              <!-- Recuadro punteado estampilla -->
+              <div class="absolute right-0 top-0 w-10 h-11 border border-dashed border-[#5A544E]"></div>
+            </div>
+          </div>
+
+          <!-- Centro: Para: + 6 líneas -->
+          <div class="my-auto space-y-2.5 px-0.5">
+            <span class="font-hand text-base sm:text-lg leading-none block">Para:</span>
+            <div class="border-b border-[#9C938A]/80"></div>
+            <div class="border-b border-[#9C938A]/80"></div>
+            <div class="border-b border-[#9C938A]/80"></div>
+            <div class="border-b border-[#9C938A]/80"></div>
+            <div class="border-b border-[#9C938A]/80"></div>
+          </div>
+
+          <!-- Fila inferior: QR + DISEÑOS A PEDIDO @cianycoral + Matasellos Chile -->
+          <div class="flex items-end justify-between gap-1 pt-1">
+            <div class="flex items-center gap-1.5">
+              <!-- QR limpio -->
+              <svg viewBox="0 0 36 36" class="w-8 h-8 shrink-0 text-[#4A4540]" fill="currentColor" aria-hidden="true">
+                <rect x="2" y="2" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.2"/>
+                <rect x="5" y="5" width="4" height="4"/>
+                <rect x="24" y="2" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.2"/>
+                <rect x="27" y="5" width="4" height="4"/>
+                <rect x="2" y="24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.2"/>
+                <rect x="5" y="27" width="4" height="4"/>
+                <rect x="15" y="4" width="3" height="3"/><rect x="19" y="8" width="3" height="3"/>
+                <rect x="15" y="14" width="4" height="4"/><rect x="21" y="15" width="3" height="5"/>
+                <rect x="4" y="15" width="4" height="3"/><rect x="10" y="18" width="3" height="3"/>
+                <rect x="16" y="23" width="4" height="3"/><rect x="24" y="24" width="4" height="4"/>
+                <rect x="30" y="28" width="4" height="4"/><rect x="22" y="30" width="5" height="3"/>
+              </svg>
+              <div class="leading-tight">
+                <span class="block text-[8px] font-bold tracking-wider uppercase text-[#5A544E]">DISEÑOS A PEDIDO</span>
+                <span class="block text-[9px] text-[#6E6760] font-medium">📷 @cianycoral</span>
+              </div>
+            </div>
+
+            <!-- Matasellos bandera de Chile con ondas -->
+            <svg viewBox="0 0 88 42" class="w-16 h-8 shrink-0 text-[#6E6760]" fill="none" stroke="currentColor" aria-hidden="true">
+              <circle cx="24" cy="21" r="16" stroke-width="1.2" stroke-dasharray="18 3 10 2" />
+              <circle cx="24" cy="21" r="11" stroke-width="1" />
+              <!-- Bandera circular -->
+              <clipPath id="chile-clip"><circle cx="24" cy="21" r="9" /></clipPath>
+              <g clip-path="url(#chile-clip)">
+                <rect x="15" y="12" width="9" height="9" fill="#7A736C" stroke="none" />
+                <rect x="15" y="21" width="18" height="9" fill="#5A544E" stroke="none" />
+                <polygon points="19.5,14.2 20.2,16.2 22.3,16.2 20.6,17.4 21.2,19.4 19.5,18.2 17.8,19.4 18.4,17.4 16.7,16.2 18.8,16.2" fill="#FAF7F0" stroke="none" />
+              </g>
+              <path d="M42 15 Q52 11 62 15 T84 15" stroke-width="1" />
+              <path d="M42 21 Q52 17 62 21 T84 21" stroke-width="1" />
+              <path d="M42 27 Q52 23 62 27 T84 27" stroke-width="1" />
+            </svg>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderArtworkImg(item) {
+      return `
+        <img
+          src="${sanitizeText(item.img)}"
+          alt="${sanitizeText(item.title)}"
+          loading="lazy"
+          decoding="async"
+          class="w-full h-full object-cover"
+        />
+      `;
+    }
+
+    function toggleFlip(el) {
+      if (el) el.classList.toggle('is-flipped');
+    }
+
+    // =========================================================================
+    // ESTADO Y CATÁLOGO
+    // =========================================================================
+    const appState = {
+      category: 'Todas',
+      search: '',
+      cart: []
+    };
+
+    function loadCart() {
+      try {
+        const raw = localStorage.getItem('cianycoral_cart_v3');
+        if (!raw) return;
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed)) return;
+        appState.cart = parsed
+          .filter(it => it && CATALOG.some(c => c.id === it.id) && FORMATS[it.formatId] && Number.isInteger(it.qty) && it.qty > 0)
+          .map(it => ({ id: it.id, formatId: it.formatId, qty: Math.min(it.qty, 99) }));
+      } catch (_) {
+        appState.cart = [];
+      }
+    }
+
+    function persistCart() {
+      try { localStorage.setItem('cianycoral_cart_v3', JSON.stringify(appState.cart)); } catch (_) {}
+    }
+
+    function selectCategory(cat) {
+      appState.category = cat;
+      document.querySelectorAll('.category-chip').forEach(btn => {
+        const active = btn.getAttribute('data-category') === cat;
+        btn.className = active
+          ? 'category-chip px-4 py-2 rounded-2xl text-xs sm:text-sm font-semibold whitespace-nowrap bg-ink text-white transition-all'
+          : 'category-chip px-4 py-2 rounded-2xl text-xs sm:text-sm font-semibold whitespace-nowrap bg-paperWarm text-slate-700 hover:bg-cian-pastel/60 transition-all';
+      });
+      renderCatalog();
+    }
+
+    function handleSearch(q) {
+      appState.search = String(q || '').trim().toLowerCase().slice(0, 80);
+      renderCatalog();
+    }
+
+    function resetCatalogFilters() {
+      appState.category = 'Todas';
+      appState.search = '';
+      document.getElementById('search-input').value = '';
+      selectCategory('Todas');
+    }
+
+    function renderCatalog() {
+      const grid = document.getElementById('catalog-grid');
+      const emptyEl = document.getElementById('catalog-empty-state');
+      if (!grid) return;
+
+      const filtered = CATALOG.filter(item => {
+        if (appState.category !== 'Todas' && item.category !== appState.category) return false;
+        if (appState.search) {
+          const text = `${item.title} ${item.category}`.toLowerCase();
+          if (!text.includes(appState.search)) return false;
         }
+        return true;
+      });
 
-        function renderGrilla() {
-            const grid = document.getElementById('product-grid');
-            const filtrados = categoriaActiva === 'Todos' 
-                ? INVENTARIO 
-                : INVENTARIO.filter(p => p.categoria === categoriaActiva);
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        emptyEl.classList.remove('hidden');
+        return;
+      }
+      emptyEl.classList.add('hidden');
 
-            document.getElementById('counter').innerText = `Mostrando ${filtrados.length} postales en "${categoriaActiva}"`;
+      const backHTML = renderPostcardBackHTML();
 
-            let html = '';
-            filtrados.forEach(prod => {
-                html += `
-                <div class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-neutral-100 flex flex-col h-full cursor-pointer" onclick="abrirModal('${prod.id}')">
-                    
-                    <div class="relative aspect-[3/4] w-full overflow-hidden flex items-center justify-center" style="background-color: ${prod.colorFondo}">
-                        <!-- Marcador de posición de imagen (reemplazar por <img> en el futuro) -->
-                        <div class="text-center p-4 z-10">
-                            <span class="text-black/30 font-bold text-2xl block mb-2">${prod.id}</span>
-                            <span class="text-black/40 text-sm font-medium block">[Imagen de ${prod.nombre}]</span>
-                        </div>
-                        
-                        <!-- Overlay al hacer hover -->
-                        <div class="absolute inset-0 bg-teal-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm z-20">
-                            <button class="bg-white text-teal-800 px-4 py-2 rounded-full font-semibold flex items-center transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-                                <i data-lucide="info" class="w-4 h-4 mr-2"></i>
-                                Ver Detalles
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="p-4 flex-grow flex flex-col justify-between">
-                        <div>
-                            <h3 class="font-bold text-neutral-800 text-lg leading-tight">${prod.id}</h3>
-                            <p class="text-xs text-neutral-500 mt-1 uppercase tracking-wide">${prod.categoria}</p>
-                        </div>
-                        <div class="mt-3 flex justify-between items-center">
-                            <span class="text-teal-700 font-bold">${prod.precio}</span>
-                            <button class="text-neutral-400 hover:text-teal-600 transition-colors pointer-events-none">
-                                <i data-lucide="chevron-right" class="w-5 h-5"></i>
-                            </button>
-                        </div>
-                    </div>
+      grid.innerHTML = filtered.map(item => `
+        <article class="bg-white/95 rounded-3xl border border-stone-200/90 p-3.5 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between space-y-3">
+          <!-- Postal con giro 3D -->
+          <div class="postcard-scene aspect-[4/3] w-full">
+            <div id="flip-${item.id}" class="postcard-inner rounded-xl">
+              <!-- Tiro (Frente) -->
+              <div class="postcard-face bg-white p-2 rounded-xl border border-stone-200 postcard-paper-shadow flex flex-col">
+                <div class="relative flex-1 rounded-lg overflow-hidden bg-paperWarm">
+                  ${renderArtworkImg(item)}
+                  <span class="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-white/90 text-[10px] font-bold text-ink">
+                    ${sanitizeText(item.category)}
+                  </span>
                 </div>
-                `;
-            });
-            
-            grid.innerHTML = html;
-            // Refrescar los iconos después de renderizar HTML nuevo
-            lucide.createIcons();
-        }
+              </div>
+              <!-- Retiro (Reverso) -->
+              <div class="postcard-face postcard-back p-2.5 rounded-xl border border-stone-200 postcard-paper-shadow">
+                ${backHTML}
+              </div>
+            </div>
+          </div>
 
-        // 3. Lógica de Interacción
-        function cambiarCategoria(cat) {
-            categoriaActiva = cat;
-            renderFiltros();
-            renderGrilla();
-        }
+          <div class="space-y-2.5">
+            <div class="flex items-start justify-between gap-2">
+              <h3 class="font-serif text-xl font-bold text-ink leading-tight">${sanitizeText(item.title)}</h3>
+              <button type="button" onclick="toggleFlip(document.getElementById('flip-${item.id}'))" class="shrink-0 text-[11px] font-semibold text-cian-deep hover:underline">
+                ↻ Reverso
+              </button>
+            </div>
 
-        function abrirModal(id) {
-            const producto = INVENTARIO.find(p => p.id === id);
-            if(!producto) return;
+            <select id="sel-fmt-${item.id}" aria-label="Formato de ${sanitizeText(item.title)}" class="w-full px-2.5 py-2 rounded-xl bg-paper border border-stone-200 text-xs font-medium text-ink focus:outline-none focus:border-cian">
+              <option value="postal">Postal — $2.000 (3×$5.000)</option>
+              <option value="postal_sobre">Postal con sobre — $2.500</option>
+              <option value="cuadro_postal">Cuadro tamaño postal — $8.000</option>
+              <option value="lamina_21x30">Formato 21×30 solo papel — $4.500</option>
+              <option value="cuadro_21x30">Cuadro 21×30 con marco — $10.000</option>
+            </select>
 
-            document.getElementById('modal-img-container').style.backgroundColor = producto.colorFondo;
-            document.getElementById('modal-id').innerText = producto.id;
-            document.getElementById('modal-img-text').innerText = `[Imagen detallada de ${producto.nombre}]`;
-            
-            document.getElementById('modal-categoria').innerText = producto.categoria;
-            document.getElementById('modal-nombre').innerText = producto.nombre;
-            document.getElementById('modal-precio').innerText = producto.precio;
-            document.getElementById('modal-desc').innerText = producto.descripcion;
-            document.getElementById('modal-medidas').innerText = producto.medidas;
-            document.getElementById('modal-tecnica').innerText = producto.tecnicaOriginal;
+            <button type="button" onclick="addFromCard('${item.id}')" class="w-full py-2.5 px-3 rounded-xl bg-ink hover:bg-cian-deep text-white text-xs font-bold transition-colors active:scale-95">
+              + Agregar al carrito
+            </button>
+          </div>
+        </article>
+      `).join('');
+    }
 
-            productoSeleccionado = producto; // Guardamos la referencia para el carrito
+    // =========================================================================
+    // CARRITO, PROMOCIONES AUTOMÁTICAS (3x$5.000 / 6x$10.000) Y ENVÍO GRATIS
+    // =========================================================================
+    function addFromCard(id) {
+      const sel = document.getElementById(`sel-fmt-${id}`);
+      const fmtId = sel && FORMATS[sel.value] ? sel.value : 'postal';
+      addToCart(id, fmtId, 1);
+    }
 
-            const modal = document.getElementById('modal-overlay');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            
-            // Bloquear el scroll de la página de fondo
-            document.body.style.overflow = 'hidden';
-        }
+    function addToCart(id, formatId = 'postal', qty = 1) {
+      const item = CATALOG.find(c => c.id === id);
+      const fmt = FORMATS[formatId];
+      if (!item || !fmt) return;
 
-        function cerrarModal(e) {
-            // Cierra si se llama sin evento (desde el botón X) o si se hizo clic en el overlay gris
-            if (!e || e.target.id === 'modal-overlay') {
-                const modal = document.getElementById('modal-overlay');
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-                
-                // Restaurar el scroll
-                document.body.style.overflow = 'auto';
-            }
-        }
+      const existing = appState.cart.find(e => e.id === id && e.formatId === formatId);
+      if (existing) {
+        existing.qty = Math.min(99, existing.qty + qty);
+      } else {
+        appState.cart.push({ id, formatId, qty: Math.min(99, Math.max(1, qty)) });
+      }
+      persistCart();
+      renderCart();
+      showToast(`Agregado: ${item.title} (${fmt.name})`);
+    }
 
-        // ==================================
-        // LÓGICA DEL CARRITO Y WHATSAPP
-        // ==================================
-        
-        function agregarAlCarrito() {
-            if (!productoSeleccionado) return;
-            
-            const itemExistente = carrito.find(item => item.id === productoSeleccionado.id);
-            if (itemExistente) {
-                itemExistente.cantidad += 1;
-            } else {
-                carrito.push({ ...productoSeleccionado, cantidad: 1 });
-            }
-            
-            cerrarModal(); // Cerramos la vista de detalle
-            actualizarCarritoUI();
-            toggleCarrito(); // Abrimos el carrito para confirmarle al usuario
-        }
+    function changeCartQty(index, delta) {
+      if (!appState.cart[index]) return;
+      const next = appState.cart[index].qty + delta;
+      if (next <= 0) appState.cart.splice(index, 1);
+      else appState.cart[index].qty = Math.min(99, next);
+      persistCart();
+      renderCart();
+    }
 
-        function modificarCantidad(id, cambio) {
-            const index = carrito.findIndex(item => item.id === id);
-            if (index !== -1) {
-                carrito[index].cantidad += cambio;
-                if (carrito[index].cantidad <= 0) {
-                    carrito.splice(index, 1); // Lo elimina si llega a cero
-                }
-                actualizarCarritoUI();
-            }
-        }
+    function removeCartItem(index) {
+      appState.cart.splice(index, 1);
+      persistCart();
+      renderCart();
+    }
 
-        function eliminarDelCarrito(id) {
-            carrito = carrito.filter(item => item.id !== id);
-            actualizarCarritoUI();
-        }
+    function computeCartTotals() {
+      let subtotal = 0;
+      let totalCount = 0;
+      let postalesCount = 0;
+      let hasHeavyItems = false;
 
-        function toggleCarrito() {
-            const panel = document.getElementById('cart-panel');
-            const overlay = document.getElementById('cart-overlay');
-            
-            if (panel.classList.contains('translate-x-full')) {
-                // Abre el panel
-                panel.classList.remove('translate-x-full');
-                overlay.classList.remove('hidden');
-                document.body.style.overflow = 'hidden'; // Evita scrollear la web detrás
-            } else {
-                // Cierra el panel
-                panel.classList.add('translate-x-full');
-                overlay.classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            }
-        }
+      for (const entry of appState.cart) {
+        const fmt = FORMATS[entry.formatId];
+        if (!fmt) continue;
+        subtotal += fmt.price * entry.qty;
+        totalCount += entry.qty;
+        if (fmt.isPostal) postalesCount += entry.qty;
+        if (!fmt.freeShippingEligible) hasHeavyItems = true;
+      }
 
-        function actualizarCarritoUI() {
-            const contenedor = document.getElementById('cart-items');
-            const contadorHeader = document.getElementById('header-cart-count');
-            const subtotalEl = document.getElementById('cart-subtotal');
-            
-            // Actualizar número rojo en el icono de la cabecera
-            const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
-            contadorHeader.innerText = totalItems;
-            
-            if (carrito.length === 0) {
-                contenedor.innerHTML = '<p class="text-neutral-500 text-center mt-10">Tu carrito está vacío. ¡Anímate a explorar!</p>';
-                subtotalEl.innerText = '$0';
-                return;
-            }
+      // Promo automática: cada grupo de 3 postales descuenta $1.000
+      // (3 postales solas = $5.000, 6 = $10.000, 9 = $15.000...)
+      const promoTrios = Math.floor(postalesCount / 3);
+      const discount = promoTrios * 1000;
+      const total = Math.max(0, subtotal - discount);
 
-            let html = '';
-            let subtotal = 0;
+      // Envío gratis solo si el carrito tiene únicamente postales y supera $25.000
+      const freeShipping = appState.cart.length > 0 && !hasHeavyItems && total > 25000;
 
-            carrito.forEach(item => {
-                subtotal += (item.precioNum * item.cantidad);
-                
-                // Genera cada producto del pedido visualmente
-                html += `
-                <div class="flex items-center gap-4 bg-white p-3 rounded-lg border border-neutral-100 shadow-sm">
-                    <div class="w-16 h-20 rounded overflow-hidden flex items-center justify-center flex-shrink-0 relative" style="background-color: ${item.colorFondo}">
-                        <span class="text-black/30 font-bold text-xs relative z-10">${item.id}</span>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <h4 class="font-bold text-neutral-800 text-sm truncate">${item.nombre}</h4>
-                        <p class="text-teal-600 font-bold text-sm mt-1">$${item.precioNum.toLocaleString('es-CL')}</p>
-                        
-                        <div class="flex items-center justify-between mt-2">
-                            <div class="flex items-center bg-neutral-100 rounded-md">
-                                <button onclick="modificarCantidad('${item.id}', -1)" class="px-3 py-1 text-neutral-600 hover:bg-neutral-200 transition">-</button>
-                                <span class="px-2 text-sm font-semibold w-8 text-center">${item.cantidad}</span>
-                                <button onclick="modificarCantidad('${item.id}', 1)" class="px-3 py-1 text-neutral-600 hover:bg-neutral-200 transition">+</button>
-                            </div>
-                            <button onclick="eliminarDelCarrito('${item.id}')" class="text-red-400 hover:text-red-600 transition p-2" title="Eliminar">
-                                <i data-lucide="trash-2" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
+      return { subtotal, discount, promoTrios, total, totalCount, postalesCount, hasHeavyItems, freeShipping };
+    }
+
+    function renderCart() {
+      const listEl = document.getElementById('cart-items');
+      const badgeEl = document.getElementById('cart-count-badge');
+      const bannerEl = document.getElementById('cart-promo-banner');
+      const btnSend = document.getElementById('btn-send-whatsapp');
+      const t = computeCartTotals();
+
+      if (badgeEl) badgeEl.textContent = String(t.totalCount);
+
+      // Banner inteligente de promo / upsell
+      if (t.postalesCount > 0 && t.postalesCount % 3 === 2) {
+        const nextTrios = Math.floor((t.postalesCount + 1) / 3);
+        const nextPackTotal = nextTrios * 5000;
+        bannerEl.className = 'px-4 py-2.5 text-xs font-semibold border-b bg-coral-pastel text-coral-deep';
+        bannerEl.textContent = `💡 Llevas ${t.postalesCount} postales: ¡si añades 1 más, tus ${t.postalesCount + 1} postales te quedan en ${formatCLP(nextPackTotal)} (ahorras $1.000 extra)!`;
+      } else if (t.promoTrios > 0) {
+        bannerEl.className = 'px-4 py-2.5 text-xs font-semibold border-b bg-cian-pastel text-cian-deep';
+        bannerEl.textContent = `🎉 ¡Promo aplicada! Ahorraste ${formatCLP(t.discount)} con tus ${t.postalesCount} postales.`;
+      } else {
+        bannerEl.className = 'hidden';
+      }
+
+      if (appState.cart.length === 0) {
+        listEl.innerHTML = `
+          <div class="text-center py-12 px-4 space-y-2">
+            <p class="font-serif text-2xl font-bold text-ink">Tu carrito está vacío</p>
+            <p class="text-xs text-slate-500">Agrega postales o cuadros para armar tu pedido.</p>
+          </div>
+        `;
+        btnSend.disabled = true;
+      } else {
+        btnSend.disabled = false;
+        listEl.innerHTML = appState.cart.map((entry, idx) => {
+          const item = CATALOG.find(c => c.id === entry.id);
+          const fmt = FORMATS[entry.formatId];
+          if (!item || !fmt) return '';
+          return `
+            <div class="bg-white p-3 rounded-2xl border border-stone-200 flex items-center gap-3">
+              <div class="w-16 h-12 rounded-xl overflow-hidden shrink-0 border border-stone-100">
+                ${renderArtworkImg(item)}
+              </div>
+              <div class="flex-1 min-w-0">
+                <h4 class="font-serif font-bold text-base text-ink truncate">${sanitizeText(item.title)}</h4>
+                <span class="text-[11px] text-slate-500 block">${sanitizeText(fmt.name)} · ${formatCLP(fmt.price)}</span>
+                <div class="flex items-center justify-between mt-1.5">
+                  <div class="inline-flex items-center rounded-lg bg-paper border border-stone-200">
+                    <button type="button" onclick="changeCartQty(${idx}, -1)" class="px-2 py-0.5 text-xs font-bold">−</button>
+                    <span class="px-2 text-xs font-bold">${entry.qty}</span>
+                    <button type="button" onclick="changeCartQty(${idx}, 1)" class="px-2 py-0.5 text-xs font-bold">+</button>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs font-bold text-ink">${formatCLP(fmt.price * entry.qty)}</span>
+                    <button type="button" onclick="removeCartItem(${idx})" class="text-[11px] text-coral-deep hover:underline font-semibold">Quitar</button>
+                  </div>
                 </div>
-                `;
-            });
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
 
-            contenedor.innerHTML = html;
-            subtotalEl.innerText = `$${subtotal.toLocaleString('es-CL')} CLP`;
-            lucide.createIcons(); // Refrescar los botones de basura
+      // Totales y mensaje de envío
+      document.getElementById('summary-subtotal').textContent = formatCLP(t.subtotal);
+      document.getElementById('summary-total').textContent = formatCLP(t.total);
+
+      const discRow = document.getElementById('summary-discount-row');
+      if (t.discount > 0) {
+        discRow.classList.remove('hidden');
+        discRow.classList.add('flex');
+        document.getElementById('summary-discount').textContent = '-' + formatCLP(t.discount);
+      } else {
+        discRow.classList.add('hidden');
+        discRow.classList.remove('flex');
+      }
+
+      const shipEl = document.getElementById('summary-shipping');
+      const shipNote = document.getElementById('shipping-note');
+
+      if (appState.cart.length === 0) {
+        shipEl.textContent = 'Por evaluar';
+        shipEl.className = 'font-semibold text-slate-500';
+        shipNote.classList.add('hidden');
+      } else if (t.freeShipping) {
+        shipEl.textContent = '¡GRATIS! 🎉';
+        shipEl.className = 'font-bold text-emerald-700';
+        shipNote.textContent = 'Tu pedido de postales supera los $25.000, así que el envío va gratis.';
+        shipNote.classList.remove('hidden');
+      } else if (t.hasHeavyItems) {
+        shipEl.textContent = 'A cotizar por WhatsApp';
+        shipEl.className = 'font-semibold text-coral-deep';
+        shipNote.textContent = 'Los cuadros y láminas 21×30 no tienen envío gratis porque pesan y Chile es muy largo :P Te confirmamos el valor por WhatsApp.';
+        shipNote.classList.remove('hidden');
+      } else {
+        const falta = 25001 - t.total;
+        shipEl.textContent = 'A cotizar según ciudad';
+        shipEl.className = 'font-semibold text-slate-600';
+        shipNote.textContent = `Te faltan ${formatCLP(falta)} en postales para tener envío GRATIS.`;
+        shipNote.classList.remove('hidden');
+      }
+    }
+
+    function sendOrderWhatsApp() {
+      if (appState.cart.length === 0) return;
+
+      const name = document.getElementById('cust-name').value.trim();
+      const phone = document.getElementById('cust-phone').value.trim();
+      const address = document.getElementById('cust-address').value.trim();
+      const city = document.getElementById('cust-city').value.trim();
+      const errEl = document.getElementById('form-error-msg');
+
+      if (!name || !phone || !address || !city) {
+        errEl.textContent = 'Por favor completa tu nombre, teléfono, dirección y ciudad antes de enviar el pedido.';
+        errEl.classList.remove('hidden');
+        return;
+      }
+      errEl.classList.add('hidden');
+
+      const t = computeCartTotals();
+      const lines = [
+        `Hola *Cian y Coral* 🎨`,
+        `Quiero hacer el siguiente pedido:`,
+        ``
+      ];
+
+      for (const entry of appState.cart) {
+        const item = CATALOG.find(c => c.id === entry.id);
+        const fmt = FORMATS[entry.formatId];
+        if (item && fmt) {
+          lines.push(`• *${item.title}* — ${fmt.name} ×${entry.qty} (${formatCLP(fmt.price * entry.qty)})`);
         }
+      }
 
-        function enviarWhatsApp() {
-            if (carrito.length === 0) {
-                alert("Agrega postales a tu pedido primero.");
-                return;
-            }
+      lines.push(``);
+      lines.push(`Subtotal: ${formatCLP(t.subtotal)}`);
+      if (t.discount > 0) lines.push(`Descuento Promo Postales (3×$5.000): -${formatCLP(t.discount)}`);
+      lines.push(`*Total productos: ${formatCLP(t.total)} CLP*`);
+      lines.push(`Envío: ${t.freeShipping ? 'GRATIS (compra de postales sobre $25.000)' : 'Por evaluar según dirección'}`);
+      lines.push(``);
+      lines.push(`*Datos para envío:*`);
+      lines.push(`• Nombre: ${name}`);
+      lines.push(`• Teléfono: ${phone}`);
+      lines.push(`• Dirección: ${address}`);
+      lines.push(`• Ciudad/Comuna: ${city}`);
 
-            let texto = "Hola Ciany! 🌿 Me gustaría hacer el siguiente pedido de postales:%0A%0A";
-            let total = 0;
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`;
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
 
-            // Listar cada postal elegida
-            carrito.forEach(item => {
-                texto += `🔹 ${item.cantidad}x [${item.id}] ${item.nombre}%0A`;
-                total += item.precioNum * item.cantidad;
-            });
+    function openCart() {
+      document.getElementById('cart-overlay').classList.remove('hidden');
+      document.getElementById('cart-drawer').classList.remove('translate-x-full');
+    }
 
-            texto += `%0A*Subtotal:* $${total.toLocaleString('es-CL')} CLP%0A`;
-            texto += `*(Entiendo que el costo de envío se sumará según mi dirección)*%0A%0A`;
-            texto += `¡Quedo atento/a para coordinar el pago y envío! ✨`;
+    function closeCart() {
+      document.getElementById('cart-overlay').classList.add('hidden');
+      document.getElementById('cart-drawer').classList.add('translate-x-full');
+    }
 
-            const telefono = "56977623568";
-            // Redirigir a la API oficial de WhatsApp
-            window.open(`https://wa.me/${telefono}?text=${texto}`, '_blank');
+    let toastTimer = null;
+    function showToast(msg) {
+      const box = document.getElementById('toast-box');
+      const txt = document.getElementById('toast-text');
+      if (!box || !txt) return;
+      txt.textContent = msg;
+      box.classList.remove('opacity-0', 'translate-y-2');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => box.classList.add('opacity-0', 'translate-y-2'), 2300);
+    }
+
+    // =========================================================================
+    // MOTOR DE ACUARELA PASTEL MUY SUAVE Y DELICADA
+    // =========================================================================
+    const fluidSim = { canvas: null, ctx: null, drops: [], lastSpawn: 0 };
+    const PASTEL_PALETTE = [
+      { r: 120, g: 218, b: 226 }, // Cian pastel
+      { r: 247, g: 174, b: 160 }, // Coral pastel
+      { r: 175, g: 232, b: 236 }, // Agua marina suave
+      { r: 252, g: 207, b: 192 }  // Durazno acuarela
+    ];
+
+    function initWatercolorCanvas() {
+      const canvas = document.getElementById('watercolor-canvas');
+      if (!canvas) return;
+      fluidSim.canvas = canvas;
+      fluidSim.ctx = canvas.getContext('2d');
+
+      const resize = () => {
+        const parent = canvas.parentElement;
+        if (!parent) return;
+        const rect = parent.getBoundingClientRect();
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.max(1, rect.width * dpr);
+        canvas.height = Math.max(1, rect.height * dpr);
+        fluidSim.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      };
+
+      resize();
+      window.addEventListener('resize', resize);
+
+      const emit = (clientX, clientY, strong = false) => {
+        const now = performance.now();
+        if (!strong && now - fluidSim.lastSpawn < 55) return;
+        fluidSim.lastSpawn = now;
+        const rect = canvas.getBoundingClientRect();
+        spawnWatercolorDrop(clientX - rect.left, clientY - rect.top, strong ? 1.3 : 0.9);
+      };
+
+      canvas.addEventListener('mousemove', e => emit(e.clientX, e.clientY, false));
+      canvas.addEventListener('click', e => emit(e.clientX, e.clientY, true));
+      canvas.addEventListener('touchmove', e => { if (e.touches[0]) emit(e.touches[0].clientX, e.touches[0].clientY, false); }, { passive: true });
+      canvas.addEventListener('touchstart', e => { if (e.touches[0]) emit(e.touches[0].clientX, e.touches[0].clientY, true); }, { passive: true });
+
+      const rect = canvas.getBoundingClientRect();
+      spawnWatercolorDrop(rect.width * 0.2, rect.height * 0.35, 1.5, PASTEL_PALETTE[0]);
+      spawnWatercolorDrop(rect.width * 0.72, rect.height * 0.5, 1.5, PASTEL_PALETTE[1]);
+      requestAnimationFrame(stepWatercolorCanvas);
+    }
+
+    function spawnWatercolorDrop(x, y, scale = 1, forcedRgb = null) {
+      const rgb = forcedRgb || PASTEL_PALETTE[Math.floor(Math.random() * PASTEL_PALETTE.length)];
+      const lobes = [];
+      for (let i = 0; i < 6; i++) {
+        lobes.push({
+          angle: (Math.PI * 2 * i) / 6 + (Math.random() - 0.5) * 0.4,
+          offset: 0.18 + Math.random() * 0.22,
+          size: 0.7 + Math.random() * 0.35
+        });
+      }
+      fluidSim.drops.push({
+        x, y,
+        r: 12 * scale,
+        maxR: (80 + Math.random() * 65) * scale,
+        speed: (0.45 + Math.random() * 0.35) * scale,
+        alpha: 0.11, // Muy suave y delicado
+        rgb,
+        lobes
+      });
+      if (fluidSim.drops.length > 35) fluidSim.drops.shift();
+    }
+
+    function dropWatercolorBlob() {
+      if (!fluidSim.canvas) return;
+      const rect = fluidSim.canvas.getBoundingClientRect();
+      spawnWatercolorDrop(rect.width * (0.15 + Math.random() * 0.7), rect.height * (0.2 + Math.random() * 0.6), 1.5);
+    }
+
+    function clearWatercolorCanvas() {
+      fluidSim.drops = [];
+    }
+
+    function stepWatercolorCanvas() {
+      const { ctx, canvas, drops } = fluidSim;
+      if (ctx && canvas) {
+        const rect = canvas.getBoundingClientRect();
+        ctx.clearRect(0, 0, rect.width, rect.height);
+        for (const d of drops) {
+          if (d.r < d.maxR) {
+            d.r += d.speed;
+            d.speed *= 0.985;
+          }
+          const { r, g, b } = d.rgb;
+          for (const lobe of d.lobes) {
+            const lx = d.x + Math.cos(lobe.angle) * (d.r * lobe.offset);
+            const ly = d.y + Math.sin(lobe.angle) * (d.r * lobe.offset);
+            const lr = d.r * lobe.size;
+            const grad = ctx.createRadialGradient(lx, ly, lr * 0.1, lx, ly, lr);
+            grad.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${d.alpha * 0.45})`);
+            grad.addColorStop(0.75, `rgba(${r}, ${g}, ${b}, ${d.alpha * 0.85})`);
+            grad.addColorStop(0.94, `rgba(${r}, ${g}, ${b}, ${d.alpha * 1.15})`);
+            grad.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.arc(lx, ly, lr, 0, Math.PI * 2);
+            ctx.fill();
+          }
         }
+      }
+      requestAnimationFrame(stepWatercolorCanvas);
+    }
 
-        // Inicialización
-        renderFiltros();
-        renderGrilla();
-        actualizarCarritoUI(); // Inicializa el contador del carrito en cero
+    // =========================================================================
+    // ARRANQUE
+    // =========================================================================
+    document.addEventListener('DOMContentLoaded', async () => {
+      initWatercolorCanvas();
+      await loadCatalogFromGitHub();
+      loadCart();
+      renderCatalog();
+      renderCart();
 
-    </script>
+      const heroItem = CATALOG[0];
+      if (heroItem) {
+        document.getElementById('hero-artwork-box').innerHTML = renderArtworkImg(heroItem);
+        document.getElementById('hero-artwork-title').textContent = heroItem.title;
+        document.getElementById('hero-back-box').innerHTML = renderPostcardBackHTML();
+        document.getElementById('hero-add-btn').onclick = () => addToCart(heroItem.id, 'postal', 1);
+      }
+    });
+  </script>
 </body>
 </html>
